@@ -1,4 +1,7 @@
 #Course Project : Mariah Azlan
+
+library(plyr)
+
 #1- Merges the training and the test sets to create one data set.
   #READ ALL FILES
   #First read the labels
@@ -37,24 +40,23 @@
   
 #2- Extracts only the measurements on the mean and standard deviation for each measurement
   col_names <- names(master_data)
-  std_cols <- grep( "mean\\(\\)", colnames)
-  mean_cols <- grep ( "std\\(\\)", colnames)
-  valid_cols <- c(1,2,std_cols, mean_cols) # adding subject and activity
-  master_data <- master_data[, valid_cols]
+  std_cols <- grep( "mean\\(\\)", col_names) # extract the column numbers with mean()
+  mean_cols <- grep ( "std\\(\\)", col_names) # extract the column numbers with std()
+  valid_cols <- c(1,2,std_cols, mean_cols) # adding subject and activity as the first two columns in addition std and mean cols
+  mean_std_data <- master_data[, valid_cols] 
 
 #3 - Uses descriptive activity names to name the activities in the data set
-  master_activity <- data.frame(master_data[,2])
+  master_activity <- data.frame(master_data[,2]) #extract activity IDs in the second column
   names(master_activity)[1] <- "id"
   temp_str <- join(master_activity, activity_labels)
   master_data[,2] <- temp_str[,2]
   
-#4 Appropriately labels the data set with descriptive variable names
-  #variable subject had already been added earlier, now just rename
-  colnames(master_data)[1] <- "Subject"
-  colnames(master_data)[2] <- "Activity"
-  
-#5 From the data set in step 4, creates a second, independent tidy data set 
-#  with the average of each variable for each activity and each subject.
-  summary <- ddply(master_data, .(Activity,Subject), colMeans)
-  write.csv(summary, "summary.csv")
-  
+# #4 Appropriately labels the data set with descriptive variable names
+#   #variable subject had already been added earlier, now just rename
+#   colnames(master_data)[1] <- "Subject"
+#   colnames(master_data)[2] <- "Activity"
+#   
+# #5 From the data set in step 4, creates a second, independent tidy data set 
+# #  with the average of each variable for each activity and each subject.
+# 
+#   
