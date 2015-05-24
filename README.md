@@ -8,3 +8,6 @@ The code in this run_analysis.R aims to accomplish each step stated below:
 
 Source of data came from :
 https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip 
+
+After running the file run_analysis.R the file will produce two files for item 2 (Project_q2.txt) and item 5(Project_q5.txt).
+To run the source code please ensure all data file from Dataset.zip is extracted in the same folder.
